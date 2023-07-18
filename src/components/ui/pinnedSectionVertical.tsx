@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { gsap } from "gsap-trial";
 import { ScrollTrigger } from "gsap-trial/ScrollTrigger";
 import { SplitText } from "gsap-trial/SplitText";
 import Image from "next/image";
+import { useIsomorphicLayoutEffect } from "@/utils/useIsomorphicLayoutEffect";
 
 // Register Plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -42,7 +43,7 @@ const PinnedSectionVertical = () => {
   const heading = useRef<HTMLHeadingElement | null>(null);
   const galleryBorder = useRef<HTMLDivElement | null>(null);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     // Splitting Heading and Description Text
     const splitDescription = new SplitText(description.current, {
       type: "words lines",
@@ -182,7 +183,8 @@ const ImageContainer: React.FC<{ data: { img: string; caption: string } }> = ({
   data,
 }) => {
   const container = useRef<HTMLDivElement | null>(null);
-  useLayoutEffect(() => {
+
+  useIsomorphicLayoutEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container.current,

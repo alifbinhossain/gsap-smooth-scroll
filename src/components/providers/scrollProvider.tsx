@@ -10,6 +10,7 @@ const ScrollProvider: React.FC<{ children: React.ReactNode }> = ({
       const locomotiveScroll = new LocomotiveScroll();
     })();
   }, []);
+
   return <>{children}</>;
 };
 

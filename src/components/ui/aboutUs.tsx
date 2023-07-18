@@ -1,7 +1,8 @@
 "use client";
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useIsomorphicLayoutEffect } from "@/utils/useIsomorphicLayoutEffect";
 
 const phases = [
   "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quia, illum.",
@@ -14,7 +15,7 @@ const phases = [
 const AboutUs = () => {
   const container = useRef<HTMLDivElement>(null);
   const heading = useRef<HTMLHeadingElement>(null);
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     const timeline = gsap.timeline({
@@ -31,6 +32,7 @@ const AboutUs = () => {
       opacity: 0,
     });
   }, []);
+
   return (
     <div ref={container} className='h-screen bg-black'>
       <div className='container flex py-16'>
@@ -56,7 +58,8 @@ const AnimatedText: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const text = useRef<HTMLParagraphElement | null>(null);
-  useLayoutEffect(() => {
+
+  useIsomorphicLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
     gsap.from(text.current, {

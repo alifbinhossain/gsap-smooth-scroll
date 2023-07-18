@@ -1,10 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useRef } from "react";
 import { gsap } from "gsap-trial";
 import { ScrollTrigger } from "gsap-trial/ScrollTrigger";
 import { SplitText } from "gsap-trial/SplitText";
+import { useIsomorphicLayoutEffect } from "@/utils/useIsomorphicLayoutEffect";
 
 // Register Plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -15,7 +16,7 @@ const Hero = () => {
   const hero = useRef<HTMLDivElement | null>(null);
   const heading = useRef<HTMLHeadingElement | null>(null);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     // Splitting Heading Text
     const splitHeadingText = new SplitText(heading.current, {
       type: "chars",
