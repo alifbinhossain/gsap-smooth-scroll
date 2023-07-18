@@ -8,6 +8,7 @@ import Navbar from "./navbar";
 
 const Header = () => {
   const [active, setActive] = useState(false);
+
   return (
     <div>
       <button

@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
-import { curve, linkContainer, linkItem, menuDrawer } from "@/vendors/variants";
+import { motion, Variants } from "framer-motion";
+import { linkContainer, linkItem, menuDrawer } from "@/vendors/variants";
 import Link from "next/link";
 
 const links = [
@@ -28,6 +28,27 @@ const links = [
 ];
 
 const Navbar = () => {
+  const initialPath = `M100 0 L200 0 L200 ${window.innerHeight} L100 ${
+    window.innerHeight
+  } Q0 ${window.innerHeight / 2} 100 0`;
+  const targetPath = `M100 0 L200 0 L200 ${window.innerHeight} L100 ${
+    window.innerHeight
+  } Q100 ${window.innerHeight / 2} 100 0`;
+
+  const curve: Variants = {
+    init: {
+      d: initialPath,
+    },
+    enter: {
+      d: targetPath,
+      transition: { duration: 1, ease: [0.25, 1, 0.5, 1] },
+    },
+    exit: {
+      d: initialPath,
+      transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] },
+    },
+  };
+
   return (
     <motion.div
       variants={menuDrawer}

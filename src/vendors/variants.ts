@@ -1,3 +1,5 @@
+"use client";
+
 import { Variants } from "framer-motion";
 
 export const menuDrawer: Variants = {
@@ -60,26 +62,5 @@ export const linkItem: Variants = {
       duration: 0.3,
       ease: [0.76, 0, 0.24, 1],
     },
-  },
-};
-
-const initialPath = `M100 0 L200 0 L200 ${window.innerHeight} L100 ${
-  window.innerHeight
-} Q0 ${window.innerHeight / 2} 100 0`;
-const targetPath = `M100 0 L200 0 L200 ${window.innerHeight} L100 ${
-  window.innerHeight
-} Q100 ${window.innerHeight / 2} 100 0`;
-
-export const curve: Variants = {
-  init: {
-    d: initialPath,
-  },
-  enter: {
-    d: targetPath,
-    transition: { duration: 1, ease: [0.25, 1, 0.5, 1] },
-  },
-  exit: {
-    d: initialPath,
-    transition: { duration: 0.8, ease: [0.25, 1, 0.5, 1] },
   },
 };
