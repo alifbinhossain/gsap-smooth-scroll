@@ -3,8 +3,8 @@ import { Sirin_Stencil as Secondary } from "next/font/google";
 
 export const fontPrimary = Primary({
   variable: "--font-primary",
-  weight: "400",
   subsets: ["latin"],
+  weight: "400",
 });
 
 export const fontSecondary = Secondary({

@@ -1,15 +1,14 @@
 "use client";
 
 import React, { useRef } from "react";
-import { gsap } from "gsap-trial";
-import { ScrollTrigger } from "gsap-trial/ScrollTrigger";
-import { SplitText } from "gsap-trial/SplitText";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import Image from "next/image";
 import { useIsomorphicLayoutEffect } from "@/utils/useIsomorphicLayoutEffect";
 
 // Register Plugins
 gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(SplitText);
 
 // Mock Data
 const gallery = [
@@ -44,14 +43,6 @@ const PinnedSectionVertical = () => {
   const galleryBorder = useRef<HTMLDivElement | null>(null);
 
   useIsomorphicLayoutEffect(() => {
-    // Splitting Heading and Description Text
-    const splitDescription = new SplitText(description.current, {
-      type: "words lines",
-    });
-    const splitHeading = new SplitText(heading.current, {
-      type: "chars",
-    });
-
     //Pinning Left Content Box on Scroll Trigger
     const scroll = ScrollTrigger.create({
       trigger: container.current,
@@ -74,42 +65,28 @@ const PinnedSectionVertical = () => {
       },
     });
 
-    //Heading Animation on Scroll Trigger
-    gsap.from(splitHeading.chars, {
-      x: -100,
+    //Heading Animation
+    gsap.from(heading.current, {
       opacity: 0,
-      duration: 0.4,
-      stagger: 0.05,
+      x: -200,
       scrollTrigger: {
         trigger: container.current,
         start: "top center",
-        end: "",
-      },
-
-      onComplete: () => {
-        splitHeading.revert();
+        end: "top+=500 center",
+        scrub: true,
       },
     });
 
-    // Description Animation on Scroll Trigger
-    const tl = gsap.timeline({
+    //Description Animation
+    gsap.from(description.current, {
+      opacity: 0,
+      y: -200,
+      delay: 3,
       scrollTrigger: {
         trigger: container.current,
-        endTrigger: description.current,
         start: "top top",
-        end: "bottom top",
+        end: "top+=800px top",
         scrub: true,
-        toggleActions: "restart none none none",
-      },
-    });
-
-    tl.from(splitDescription.lines, {
-      opacity: 0,
-      y: 100,
-      duration: 0.3,
-      stagger: 0.03,
-      onComplete: () => {
-        splitDescription.revert();
       },
     });
 
@@ -121,14 +98,14 @@ const PinnedSectionVertical = () => {
   return (
     <section className='min-h-screen'>
       <div ref={container} className='h-full bg-black'>
-        <div className='max-w-[1400px] mx-auto flex h-full relative'>
+        <div className='max-w-[1200px] 2xl:max-w-[1400px] mx-auto flex h-full relative'>
           <div ref={contentBox} className='w-[50%]  py-20'>
             <h2 ref={heading} className='text-8xl'>
               About Us
             </h2>
             <p
               ref={description}
-              className='mt-12 text-xl leading-relaxed tracking-wide'
+              className='mt-12 text-xl leading-relaxed tracking-wide '
             >
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia qui
               repudiandae sed autem adipisci necessitatibus, eveniet aut tenetur
@@ -220,3 +197,50 @@ const ImageContainer: React.FC<{ data: { img: string; caption: string } }> = ({
     </div>
   );
 };
+
+// // Splitting Heading and Description Text
+// const splitDescription = new SplitText(description.current, {
+//   type: "words lines",
+// });
+// const splitHeading = new SplitText(heading.current, {
+//   type: "chars",
+// });
+
+// //Heading Animation on Scroll Trigger
+// gsap.from(splitHeading.chars, {
+//   x: -100,
+//   opacity: 0,
+//   duration: 0.4,
+//   stagger: 0.05,
+//   scrollTrigger: {
+//     trigger: container.current,
+//     start: "top center",
+//     end: "",
+//   },
+
+//   onComplete: () => {
+//     splitHeading.revert();
+//   },
+// });
+
+// // Description Animation on Scroll Trigger
+// const tl = gsap.timeline({
+//   scrollTrigger: {
+//     trigger: container.current,
+//     endTrigger: description.current,
+//     start: "top top",
+//     end: "bottom top",
+//     scrub: true,
+//     toggleActions: "restart none none none",
+//   },
+// });
+
+// tl.from(splitDescription.lines, {
+//   opacity: 0,
+//   y: 100,
+//   duration: 0.3,
+//   stagger: 0.03,
+//   onComplete: () => {
+//     splitDescription.revert();
+//   },
+// });

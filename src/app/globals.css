@@ -79,8 +79,14 @@ p {
 
 .gallery-ratio {
   position: relative;
-  height: 500px;
+  height: 400px;
   aspect-ratio: 4/5;
+}
+
+@media screen and (min-width: 1400px) {
+  .gallery-ratio {
+    height: 500px;
+  }
 }
 
 .gallery-border::after {

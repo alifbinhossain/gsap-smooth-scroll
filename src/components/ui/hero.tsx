@@ -2,14 +2,13 @@
 
 import Image from "next/image";
 import React, { useRef } from "react";
-import { gsap } from "gsap-trial";
-import { ScrollTrigger } from "gsap-trial/ScrollTrigger";
-import { SplitText } from "gsap-trial/SplitText";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 import { useIsomorphicLayoutEffect } from "@/utils/useIsomorphicLayoutEffect";
 
 // Register Plugins
 gsap.registerPlugin(ScrollTrigger);
-gsap.registerPlugin(SplitText);
 
 const Hero = () => {
   const background = useRef<HTMLDivElement | null>(null);
@@ -17,46 +16,12 @@ const Hero = () => {
   const heading = useRef<HTMLHeadingElement | null>(null);
 
   useIsomorphicLayoutEffect(() => {
-    // Splitting Heading Text
-    const splitHeadingText = new SplitText(heading.current, {
-      type: "chars",
+    // Heading Animation
+    gsap.from(heading.current, {
+      opacity: 0,
+      duration: 0.7,
+      delay: 1,
     });
-
-    //Initial Heading Animation
-    const headingTimeline = gsap.timeline();
-
-    headingTimeline
-      .from(splitHeadingText.chars, {
-        x: -100,
-        opacity: 0,
-        duration: 0.7,
-        stagger: 0.07,
-        delay: 1,
-      })
-      .to(
-        splitHeadingText.chars,
-        {
-          duration: 0.1,
-          scale: 0.9,
-          stagger: 0.1,
-          rotate: 15,
-          skew: 180,
-          color: "gray",
-        },
-        "words"
-      )
-      .to(
-        splitHeadingText.chars,
-        {
-          scale: 1,
-          duration: 0.2,
-          stagger: 0.1,
-          rotate: 0,
-          skew: 0,
-          color: "white",
-        },
-        "words+=0.1"
-      );
 
     const timeline = gsap.timeline({
       scrollTrigger: {
@@ -106,7 +71,7 @@ const Hero = () => {
           ref={heading}
           data-scroll
           data-scroll-speed='.7'
-          className='text-[140px] font-bold text-white tracking-widest '
+          className='text-[140px] font-bold text-white tracking-widest relative'
         >
           KASHMIR
         </h1>
@@ -116,3 +81,44 @@ const Hero = () => {
 };
 
 export default Hero;
+
+// Splitting Heading Text
+// const splitHeadingText = new SplitText(heading.current, {
+//   type: "chars",
+// });
+
+//Initial Heading Animation
+// const headingTimeline = gsap.timeline();
+
+// headingTimeline
+//   .from(splitHeadingText.chars, {
+//     x: -100,
+//     opacity: 0,
+//     duration: 0.7,
+//     stagger: 0.07,
+//     delay: 1,
+//   })
+//   .to(
+//     splitHeadingText.chars,
+//     {
+//       duration: 0.1,
+//       scale: 0.9,
+//       stagger: 0.1,
+//       rotate: 15,
+//       skew: 180,
+//       color: "gray",
+//     },
+//     "words"
+//   )
+//   .to(
+//     splitHeadingText.chars,
+//     {
+//       scale: 1,
+//       duration: 0.2,
+//       stagger: 0.1,
+//       rotate: 0,
+//       skew: 0,
+//       color: "white",
+//     },
+//     "words+=0.1"
+//   );
